@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://getbootstrap.com/docs/4.3/examples/grid/ -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>新闻人物言论自动提取</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/grid/">
+    <script src="../static/js/diy.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/_bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../static/css/grid.css" rel="stylesheet">
+</head>
+<body class="py-4">
+<div class="container">
+
+    <h1>新闻人物言论自动提取</h1>
+    <p class="lead">功能简介</p>
+    <p>简介<code>简介</code> 简介</p>
+    <div>
+        <!-- action=数据要提交到的程序 -->
+        <form action="/project1" method="post">
+            <textarea name="news" style=" overflow: auto; width:950px;height:200px;" value="请输入"
+                      onFocus="if (value =='请输入'){value =''}" onBlur="if (value ==''){value='请输入'}"/></textarea>
+            <button style="float:right; width: 150px; height: 50px; font-size: large">开始提取</button>
+        </form>
+    </div>
+
+    {% if data %}
+
+    <h2 class="mt-4">新闻内容</h2>
+    <div class="col-md-12 themed-grid-col">{{news}}</div>
+    <h2 class="mt-4">提取结果</h2>
+    <div class="row mb-3">
+        <!-- <div class="col-md-2 themed-grid-col">{{data[1]}}</div>
+        <div class="col-md-1 themed-grid-col">{{data}}</div>
+        <div class="col-md-9 themed-grid-col">{{data}}</div>
+         -->
+        {% for element in data %}    <!-- 循环开始，注意写法类似python中的for，但是最后没有冒号 -->
+        <!-- <p>{{element}}</p>
+        显示element的内容 -->
+        <div class="col-md-3 themed-grid-col">{{element[0]}}</div>
+        <div class="col-md-9 themed-grid-col">{{element[2]}}</div>
+        {% end %}
+
+    </div>
+
+
+    {% end %}
+
+
+</div> <!-- /container -->
+
+
+</body>
+</html>
