@@ -1,147 +1,74 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<!-- saved from url=(0048)https://getbootstrap.com/docs/4.3/examples/grid/ -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-.link {
-  fill: none;
-  stroke: #666;
-  stroke-width: 1.5px;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>新闻摘要自动提取</title>
 
-#licensing {
-  fill: green;
-}
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/grid/">
+    <script src="../static/js/diy.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
 
-.link.licensing {
-  stroke: green;
-}
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/_bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-.link.resolved {
-  stroke-dasharray: 0,2 1;
-}
 
-circle {
-  fill: #ccc;
-  stroke: #333;
-  stroke-width: 1.5px;
-}
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-text {
-  font: 10px sans-serif;
-  pointer-events: none;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-}
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../static/css/grid.css" rel="stylesheet">
+</head>
+<body class="py-4">
+<div class="container">
 
-</style>
-<body>
-<script src="../static/js/d3.min.js"></script>
-<script>
+    <h1>新闻摘要自动提取</h1>
+<!--    <p>contributor：</p>-->
+    <p class="lead">将新闻内容粘贴至下方文本框中，点击按钮开始提取。</p>
+    <div>
+        <!-- action=数据要提交到的程序 -->
+        <form action="/project2" method="post">
+            <textarea name="news" style=" overflow: auto; width:950px;height:200px;" value="请输入"
+                      onFocus="if (value =='请输入'){value =''}" onBlur="if (value ==''){value='请输入'}"/></textarea>
+            <button style="float:right; width: 150px; height: 50px; font-size: large">开始提取</button>
+        </form>
+    </div>
 
-// http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
-var links = [
-  {source: "Microsoft", target: "Amazon", type: "licensing"},
-  {source: "Microsoft", target: "HTC", type: "licensing"},
-  {source: "Samsung", target: "Apple", type: "suit"},
-  {source: "Motorola", target: "Apple", type: "suit"},
-  {source: "Nokia", target: "Apple", type: "resolved"},
-  {source: "HTC", target: "Apple", type: "suit"},
-  {source: "Kodak", target: "Apple", type: "suit"},
-  {source: "Microsoft", target: "Barnes & Noble", type: "suit"},
-  {source: "Microsoft", target: "Foxconn", type: "suit"},
-  {source: "Oracle", target: "Google", type: "suit"},
-  {source: "Apple", target: "HTC", type: "suit"},
-  {source: "Microsoft", target: "Inventec", type: "suit"},
-  {source: "Samsung", target: "Kodak", type: "resolved"},
-  {source: "LG", target: "Kodak", type: "resolved"},
-  {source: "RIM", target: "Kodak", type: "suit"},
-  {source: "Sony", target: "LG", type: "suit"},
-  {source: "Kodak", target: "LG", type: "resolved"},
-  {source: "Apple", target: "Nokia", type: "resolved"},
-  {source: "Qualcomm", target: "Nokia", type: "resolved"},
-  {source: "Apple", target: "Motorola", type: "suit"},
-  {source: "Microsoft", target: "Motorola", type: "suit"},
-  {source: "Motorola", target: "Microsoft", type: "suit"},
-  {source: "Huawei", target: "ZTE", type: "suit"},
-  {source: "Ericsson", target: "ZTE", type: "suit"},
-  {source: "Kodak", target: "Samsung", type: "resolved"},
-  {source: "Apple", target: "Samsung", type: "suit"},
-  {source: "Kodak", target: "RIM", type: "suit"},
-  {source: "Nokia", target: "Qualcomm", type: "suit"}
-];
+    {% if data %}
 
-var nodes = {};
+    <h2 class="mt-4">新闻内容</h2>
+    <div class="col-md-12 themed-grid-col">{{news}}</div>
+    <h2 class="mt-4">提取结果</h2>
+    <div class="row mb-3">
 
-// Compute the distinct nodes from the links.
-links.forEach(function(link) {
-  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
-  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
-});
+        <div class="col-md-12 themed-grid-col">{{data}}</div>
 
-var width = 960,
-    height = 500;
+    </div>
 
-var force = d3.layout.force()
-    .nodes(d3.values(nodes))
-    .links(links)
-    .size([width, height])
-    .linkDistance(60)
-    .charge(-300)
-    .on("tick", tick)
-    .start();
+    {% else %}
+    <p class="lead">没有提取到摘要</p>
+    {% end %}
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
 
-// Per-type markers, as they don't inherit styles.
-svg.append("defs").selectAll("marker")
-    .data(["suit", "licensing", "resolved"])
-  .enter().append("marker")
-    .attr("id", function(d) { return d; })
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", -1.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-  .append("path")
-    .attr("d", "M0,-5L10,0L0,5");
-
-var path = svg.append("g").selectAll("path")
-    .data(force.links())
-  .enter().append("path")
-    .attr("class", function(d) { return "link " + d.type; })
-    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
-
-var circle = svg.append("g").selectAll("circle")
-    .data(force.nodes())
-  .enter().append("circle")
-    .attr("r", 6)
-    .call(force.drag);
-
-var text = svg.append("g").selectAll("text")
-    .data(force.nodes())
-  .enter().append("text")
-    .attr("x", 8)
-    .attr("y", ".31em")
-    .text(function(d) { return d.name; });
-
-// Use elliptical arc path segments to doubly-encode directionality.
-function tick() {
-  path.attr("d", linkArc);
-  circle.attr("transform", transform);
-  text.attr("transform", transform);
-}
-
-function linkArc(d) {
-  var dx = d.target.x - d.source.x,
-      dy = d.target.y - d.source.y,
-      dr = Math.sqrt(dx * dx + dy * dy);
-  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-}
-
-function transform(d) {
-  return "translate(" + d.x + "," + d.y + ")";
-}
-
-</script>
+</div> <!-- /container -->
+</body>
+</html>

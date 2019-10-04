@@ -27,7 +27,8 @@ settings = {
     # 设置模板路径
     'template_path': 'app/templates',
     # 设置静态文件路径
-    'static_path': 'app/static'
+    'static_path': 'app/static',
+    'debug': True
 }
 
 # 路由

@@ -42,8 +42,8 @@
 <div class="container">
 
     <h1>新闻人物言论自动提取</h1>
-    <p class="lead">功能简介</p>
-    <p>简介<code>简介</code> 简介</p>
+<!--    <p>contributor：</p>-->
+    <p class="lead">将新闻内容粘贴至下方文本框中，点击按钮开始提取。</p>
     <div>
         <!-- action=数据要提交到的程序 -->
         <form action="/project1" method="post">
@@ -59,20 +59,21 @@
     <div class="col-md-12 themed-grid-col">{{news}}</div>
     <h2 class="mt-4">提取结果</h2>
     <div class="row mb-3">
-        <!-- <div class="col-md-2 themed-grid-col">{{data[1]}}</div>
-        <div class="col-md-1 themed-grid-col">{{data}}</div>
-        <div class="col-md-9 themed-grid-col">{{data}}</div>
-         -->
+        <div class="col-md-3 themed-grid-col"><b>人物</b></div>
+        <div class="col-md-9 themed-grid-col"><b>言论</b></div>
+
         {% for element in data %}    <!-- 循环开始，注意写法类似python中的for，但是最后没有冒号 -->
         <!-- <p>{{element}}</p>
         显示element的内容 -->
         <div class="col-md-3 themed-grid-col">{{element[0]}}</div>
+<!--        <div class="col-md-9 themed-grid-col">{{element}}</div>-->
         <div class="col-md-9 themed-grid-col">{{element[2]}}</div>
         {% end %}
 
     </div>
 
-
+    {% else %}
+    <p class="lead">没有提取到言论</p>
     {% end %}
 
 
