@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="13117651-3fe1-482a-940a-7499634fc4f7" name="Web-Application" url="http://39.100.3.165">
+        <fileTransfer host="39.100.3.165" port="22" rootFolder="/home/student/project/project-01/dun/Web_Application" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

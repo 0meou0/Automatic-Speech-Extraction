@@ -112,7 +112,7 @@ class BaseHandler(RequestHandler):
         :return:result:list[[person, say, comment],...]
         """
         # ltp路径
-        LTP_DATA_PATH = 'D:\pyltp-master\ltp_data_v3.4.0'
+        LTP_DATA_PATH = '../ltp_data_v3.4.0'
 
         cws_model_path = os.path.join(LTP_DATA_PATH, 'cws.model')
         pos_model_path = os.path.join(LTP_DATA_PATH, 'pos.model')
@@ -194,24 +194,28 @@ class BaseHandler(RequestHandler):
                                 # 说后面跟，或：
                                 if words[p[0]] == ',' or words[p[0]] == '，' or words[p[0]] == ':':
                                     # print('说，')
-                                    end = self.find_str_index(words, p[0] + 1, ['。', '！'])
-                                    if end != -1:
-                                        comment = ''.join(words[p[0] + 1:end])
+                                    comment = ''.join(words[p[0]+1:])
+                                    # end = self.find_str_index(words, p[0] + 1, ['。', '！'])
+                                    # if end != -1:
+                                    #     comment = ''.join(words[p[0] + 1:end])
                                         # 说后跟宾语
                                 elif parse_list[p[0]][1] == 'VOB' or parse_list[p[0]][1] == 'IOB':
                                     print('告诉谁')
                                     i = 0
-                                    while len(comment) == 0:
-                                        end = self.find_str_index(words, p[0] + i, ['，', '。', '！'])
-                                        if end != -1:
-                                            comment = ''.join(words[p[0] + i:end])
-                                        i = i + 1
+                                    comment = ''.join(words[p[0]+1:])
+                                    # while len(comment) == 0:
+                                    #     end = self.find_str_index(words, p[0] + i, [ '。', '！'])
+                                    #     if end != -1:
+                                    #         comment = ''.join(words[p[0] + i:end])
+                                    #     i = i + 1
                                         # 说后面直接跟内容
                                 else:
+                                    comment = ''.join(words[p[0]:])
                                     # print('说内容')
-                                    end = self.find_str_index(words, p_index, ['，', '。', '！'])
-                                    if end != -1:
-                                        comment = ''.join(words[p[0]:end])
+                                    # end = self.find_str_index(words, p_index, [ '。', '！'])
+                                    # if end != -1:
+                                    #     comment = ''.join(words[p[0]:end])
+
                         print(parse_list)
                         # print(words[p[0]])
                         print(sentence)
