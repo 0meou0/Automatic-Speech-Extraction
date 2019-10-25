@@ -41,7 +41,7 @@ application = web.Application([
 if __name__ == '__main__':
     # socket
     http_server = httpserver.HTTPServer(application)
-    http_server.listen(9999)
+    http_server.listen(7777)
     print('http//:127.0.0.1:9999')
 
     ioloop.IOLoop.current().start()
